@@ -19,7 +19,6 @@
         - `cd <root-dir-of-project>`
         - `pip install --upgrade -I -r requirements.txt`
         > #### Install any missing requirement with `pip install <package-name>`  
-        #### That's all for the setup ! :smiley: 
 
 1. ## Setups
 
@@ -38,7 +37,7 @@
        > `from database import Operations`  
         `Operations.create_tables()`
 
-- AND Yes you did it. That's all required for the setup. :clap:
+#### You did it. That's all required for the setup. :clap: :smiley:
 
 ## Using the celebrity face recognition:
 
