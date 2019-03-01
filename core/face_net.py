@@ -61,7 +61,7 @@ class CelebModelOperations(object):
         Arguments:
         image_path -- path to an image
         database -- database containing image encodings along with the name of the person on the image
-        model -- your Inception model instance in Keras
+        model -- Inception model instance in Keras
         
         Returns:
         min_dist -- the minimum distance between image_path encoding and the encodings from the database
