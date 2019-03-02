@@ -2,6 +2,10 @@
 <html>
 <body>
 
+{% if message %}
+<h4>{{message}}</h4>
+{% endif %}
+
 <center><h1>Poor Man's Rekognition Demo</h1></center>
 <form action='/face_recognition' method="post" enctype="multipart/form-data">
     <fieldset>
