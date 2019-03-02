@@ -1,1 +1,1 @@
-web: gunicorn routes:app --preload --timeout 600
+web: python ./routes.py
