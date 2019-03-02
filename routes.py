@@ -63,7 +63,7 @@ def face_recognizer():
 
         if file and allowed_file(file.filename):
             try:
-                shutil.rmtree('/static/images')
+                shutil.rmtree(os.path.abspath('static/images'))
             except Exception as e:
                 logger.warning(e)
             finally:
