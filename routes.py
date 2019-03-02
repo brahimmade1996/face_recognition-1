@@ -4,6 +4,7 @@ import os
 import logging
 from werkzeug.utils import secure_filename
 from threading import Thread
+import shutil
 
 
 UPLOAD_FOLDER = 'static/images/uploads'
@@ -11,7 +12,6 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 logger = logging.getLogger('fr.main')
 fr_model = None
@@ -62,9 +62,17 @@ def face_recognizer():
             return redirect(url_for('index'))
 
         if file and allowed_file(file.filename):
+            try:
+                shutil.rmtree('/static/images')
+            except Exception as e:
+                logger.warning(e)
+            finally:
+                os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=False)
+
             global fr_model
             if fr_model == None:
                 return redirect(url_for('setup'))
+      
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
