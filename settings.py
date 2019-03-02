@@ -15,4 +15,7 @@ set_loggers()
 
 logging.info('LOGGERS READY')
 
-Operations.create_tables()
+try:
+    Operations.create_tables()
+except Exception as e:
+    logging.warning(e)
