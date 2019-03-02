@@ -3,6 +3,7 @@ from core.face_net import CelebModel, CelebModelOperations
 import os
 import logging
 from werkzeug.utils import secure_filename
+from threading import Thread
 
 
 UPLOAD_FOLDER = 'static/images/uploads'
@@ -23,6 +24,14 @@ def allowed_file(filename):
 
 @app.route("/setup")
 def setup():
+    message = None
+    if fr_model == None:
+        message = 'Setup in progress. Please wait for 5-10 minutes before trying anything.'
+        Thread(target=do_setup, args=()).start()
+    return redirect(url_for('index', message=message))
+
+
+def do_setup():
     global fr_model
 
     if fr_model == None:
@@ -30,13 +39,12 @@ def setup():
         celeb_model = CelebModel()
         logger.info('model build finished')
         fr_model = celeb_model.fr_model
-        
-    return redirect(url_for('index'))
 
 
 @app.route("/")
-def index():
-    return render_template('upload.html')
+@app.route("/<message>")
+def index(message=None):
+    return render_template('upload.html', message=message)
 
 
 @app.route("/face_recognition", methods=["POST"])
@@ -54,6 +62,9 @@ def face_recognizer():
             return redirect(url_for('index'))
 
         if file and allowed_file(file.filename):
+            global fr_model
+            if fr_model == None:
+                return redirect(url_for('setup'))
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
@@ -86,6 +97,9 @@ def add_celeb():
             return redirect(url_for('index'))
 
         if file and allowed_file(file.filename):
+            global fr_model
+            if fr_model == None:
+                return redirect(url_for('setup'))
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
