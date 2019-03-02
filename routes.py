@@ -91,5 +91,9 @@ def add_celeb():
 
 if __name__ == '__main__':
     # app.debug = True
-    app.secret_key = 'many random bytes'
-    app.run()
+    app.secret_key = 'random bytes'
+    # The port to be listening to — hence, 
+    # the URL must be <hostname>:<port>/ inorder 
+    # to send the request to this program
+    port = int(os.environ.get('PORT', 5000)) 
+    app.run(host='0.0.0.0', port=port)
