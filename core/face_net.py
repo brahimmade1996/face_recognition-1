@@ -97,6 +97,8 @@ class CelebModelOperations(object):
 
     @staticmethod
     def face_extractor(img_path):
+        tx, ty, tw, th = (None, None, None, None)
+
         img = cv2.imread(img_path, -1)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = FACE_CASCADE.detectMultiScale(gray, 1.3, 5)
@@ -108,6 +110,10 @@ class CelebModelOperations(object):
             face = cv2.resize(img[y:y+h, x:x+w, :], (96, 96))
             loc = 'static/images/temp.jpg'
             cv2.imwrite(loc, face)
+            tx, ty, tw, th = (x, y, w, h)
+
+        cv2.rectangle(img, (tx,ty), (tx+tw, ty+th), (0, 255, 0), 2)
+        cv2.imwrite(img_path, img)
         return loc
 
     @staticmethod

@@ -9,6 +9,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 logger = logging.getLogger('fr.main')
 celeb_model = CelebModel()
@@ -89,6 +90,6 @@ def add_celeb():
 
 
 if __name__ == '__main__':
-    app.debug = True
+    # app.debug = True
     app.secret_key = 'many random bytes'
     app.run()
