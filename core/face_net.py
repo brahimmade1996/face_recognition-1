@@ -14,11 +14,14 @@ import numpy as np
 import tensorflow as tf
 import logging
 from configparser import ConfigParser, ExtendedInterpolation
+import os
+
 
 config_parser = ConfigParser(interpolation=ExtendedInterpolation())
 config_parser.read('config.ini')
 logger = logging.getLogger('fr.utils')
-FACE_CASCADE = cv2.CascadeClassifier(config_parser['OPEN_CV']['cascade_classifier_path'])
+FACE_CASCADE_PATH = os.path.abspath(config_parser['OPEN_CV']['cascade_classifier_path'])
+FACE_CASCADE = cv2.CascadeClassifier(FACE_CASCADE_PATH)
 
 
 class CelebModelOperations(object):
