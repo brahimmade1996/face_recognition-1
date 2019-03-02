@@ -4,6 +4,7 @@ import os
 import logging
 from werkzeug.utils import secure_filename
 
+
 UPLOAD_FOLDER = 'static/images/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -12,12 +13,25 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 logger = logging.getLogger('fr.main')
-celeb_model = CelebModel()
+fr_model = None
     
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route("/setup")
+def setup():
+    global fr_model
+
+    if fr_model == None:
+        logger.info('start building the model')
+        celeb_model = CelebModel()
+        logger.info('model build finished')
+        fr_model = celeb_model.fr_model
+        
+    return redirect(url_for('index'))
 
 
 @app.route("/")
@@ -45,7 +59,7 @@ def face_recognizer():
             file.save(file_path)
             
             celeb_identity = CelebModelOperations.recognize_celebs(
-                file_path, celeb_model.fr_model
+                file_path, fr_model
             )
             return render_template('result.html', image_path=file_path, celeb_identity=celeb_identity)
 
@@ -78,7 +92,7 @@ def add_celeb():
             celeb_name = request.form['celeb_name'].lower()
 
             celeb_id = CelebModelOperations.add_new_celeb(
-                file_path, celeb_name, celeb_model.fr_model
+                file_path, celeb_name, fr_model
             )
             if celeb_id:
                 flash('ID {celeb_id}: {celeb_name}, added to the database.'.format(
