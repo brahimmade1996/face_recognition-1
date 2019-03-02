@@ -17,7 +17,7 @@
         - Windows: `cd </path/to/venv>` then `.\Scripts\activate`  
     - Install the requirements
         - `cd <root-dir-of-project>`
-        - `pip install --upgrade -I -r requirements.txt`
+        - `pip install -I -r requirements.txt`
         > #### Install any missing requirement with `pip install <package-name>`  
 
 1. ## Setups
@@ -34,7 +34,7 @@
    1. Creating required tables:
        -`cd </to/repo/root/dir>`
        - in shell/notebook run 
-       > `from database import Operations`  
+       > `from database_client.database import Operations`  
         `Operations.create_tables()`
 
 #### You did it. That's all required for the setup. :clap: :smiley:
@@ -51,15 +51,17 @@ You can use this project in two ways:
        - "/face_recognition": result of celeb recognition, can't be accessed directly.
        - "/new_celeb": presents a form for adding new celeb in the database.
        - "/add_celeb": adds the celebrity to the database.
-       > Disabled the public access to the last two endpoints at for my flask app demo at: http://vijusr.pythonanywhere.com/
-1. Directly the core model package (without flask app):
-   - Checkout the notebook "demo-sqlite.ipynb"
+       > Disabled the public access to the last two endpoints at for my flask app demo at: (coming soon)
+1. Directly the core model package- Checkout the notebook "demo-sqlite.ipynb" (without flask app):
+   1. `cd </to/repo/root/dir>`   
+   1. run `jupyter notebook`
+   1. click on "demo-sqlite.ipynb"
 
 
 ## Improvements:
-- Deep learning for face detection
 - Transfer learning on celeb dataset with "Siamese network"
 - Accuracy analysis with grayscale facial image captures.
+- Better face detection
 
 ## Todos:
 - Extend to multiple faces in an image frame.
