@@ -112,7 +112,7 @@ class CelebModelOperations(object):
             cv2.imwrite(loc, face)
             tx, ty, tw, th = (x, y, w, h)
 
-        cv2.rectangle(img, (tx,ty), (tx+tw, ty+th), (0, 255, 0), 2)
+        cv2.rectangle(img, (tx,ty), (tx+tw, ty+th), (0, 255, 0), 3)
         cv2.imwrite(img_path, img)
         return loc
 
