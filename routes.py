@@ -77,46 +77,6 @@ def face_recognizer():
     return redirect(url_for('index'))
 
 
-@app.route("/new_celeb")
-def celeb_form():
-    return render_template('celeb_form.html')
-
-
-@app.route("/add_celeb", methods=['POST'])
-def add_celeb():
-    if request.method == 'POST':
-
-        # check if the post request has the file part
-        if 'image_file' not in request.files:
-            return redirect(url_for('index'))
-        file = request.files['image_file']
-
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            return redirect(url_for('index'))
-
-        if file and allowed_file(file.filename):
-            global fr_model
-            if fr_model == None:
-                return redirect(url_for('setup'))
-            filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            celeb_name = request.form['celeb_name'].lower()
-
-            celeb_id = CelebModelOperations.add_new_celeb(
-                file_path, celeb_name, fr_model
-            )
-            if celeb_id:
-                flash('ID {celeb_id}: {celeb_name}, added to the database.'.format(
-                    celeb_name=celeb_name, celeb_id=celeb_id
-                ))
-            else:
-                flash('Error: Face not found or Encoding exists!')
-            return redirect(url_for('celeb_form'))
-
-
 if __name__ == '__main__':
     # app.debug = True
     app.secret_key = 'many random bytes'
