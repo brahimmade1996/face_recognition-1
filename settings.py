@@ -1,5 +1,5 @@
 import logging
-
+from database_client.database import Operations
 
 def set_loggers():
 
@@ -14,3 +14,5 @@ def set_loggers():
 set_loggers()
 
 logging.info('LOGGERS READY')
+
+Operations.create_tables()
