@@ -1,7 +1,8 @@
 # face_recognition
 
 ## Some results First!  
-![cfr-demo](https://user-images.githubusercontent.com/20581741/53685501-8086d780-3d41-11e9-966b-adc5c1f02680.gif)
+![cfr-demo](https://user-images.githubusercontent.com/20581741/53685501-8086d780-3d41-11e9-966b-adc5c1f02680.gif)  
+[**Checkout the demo**](poor-mans-rekognition.herokuapp.com)
 
 ## Getting Started
 1. ### Get the code:
@@ -51,7 +52,7 @@ You can use this project in two ways:
        - "/face_recognition": result of celeb recognition, can't be accessed directly.
        - "/new_celeb": presents a form for adding new celeb in the database.
        - "/add_celeb": adds the celebrity to the database.
-       > Disabled the public access to the last two endpoints at for my flask app demo at: (coming soon)
+       > Disabled the public access to the '\new_celeb' endpoint at demo website: [poor-mans-rekognition.herokuapp.com](poor-mans-rekognition.herokuapp.com)
 1. Directly the core model package- Checkout the notebook "demo-sqlite.ipynb" (without flask app):
    1. `cd </to/repo/root/dir>`   
    1. run `jupyter notebook`
