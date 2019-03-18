@@ -65,6 +65,7 @@ You can use this project in two ways:
 - Better face detection
 
 ## Todos:
+- Change the result to json
 - Extend to multiple faces in an image frame.
 - Video processing (recognize celebs in video scenes).
 - Top n matching celebs. 
